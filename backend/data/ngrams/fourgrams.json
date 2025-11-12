@@ -1,0 +1,19 @@
+{
+  "in_addition_to": ["the", "this", "these"],
+  "on_the_other": ["hand", "side"],
+  "with_regard_to": ["the", "this"],
+  "according_to_the": ["data", "evidence", "research", "study"],
+  "it_is_important": ["to", "that", "for"],
+  "it_is_essential": ["to", "that", "for"],
+  "as_a_result": ["of", "the"],
+  "for_this_reason": ["it", "we", "the"],
+  "in_other_words": ["the", "this"],
+  "by_way_of": ["example", "illustration"],
+  "with_respect_to": ["the", "this"],
+  "due_to_the": ["fact", "evidence"],
+  "it_should_be": ["noted", "emphasized", "recognized"],
+  "this_suggests_that": ["the", "there"],
+  "the_evidence_suggests": ["that"],
+  "research_shows_that": ["the", "there"],
+  "it_can_be": ["seen", "argued", "concluded"]
+}

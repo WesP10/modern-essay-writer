@@ -1,0 +1,11 @@
+{
+  "in_addition_to_the": ["evidence", "data", "fact"],
+  "in_addition_to_this": ["the", "it"],
+  "on_the_other_hand": ["the", "it", "there"],
+  "as_a_result_of": ["the", "this"],
+  "with_regard_to_the": ["issue", "question", "matter"],
+  "according_to_the_data": ["the", "it"],
+  "it_is_important_to": ["note", "recognize", "understand"],
+  "it_can_be_seen": ["that", "from"],
+  "this_suggests_that_the": ["evidence", "data"]
+}

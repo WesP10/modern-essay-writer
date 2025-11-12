@@ -1,0 +1,223 @@
+{
+  "in": [
+    "in addition", "in conclusion", "in contrast", "in other words", "in fact", "in general",
+    "in particular", "in summary", "in short", "in brief", "in essence", "in reality",
+    "in this case", "in this context", "in this regard", "in the end", "in the meantime",
+    "in light of", "in spite of", "in view of", "in accordance with", "in relation to",
+    "in comparison to", "in reference to", "in response to", "in order to", "in terms of",
+    "in retrospect", "in hindsight", "in practice", "in theory", "in principle",
+    "in the first place", "in the long run", "in the final analysis", "in all likelihood",
+    "in many respects", "in some cases", "in most instances", "in certain circumstances"
+  ],
+  "on": [
+    "on the other hand", "on the contrary", "on balance", "on average", "on occasion",
+    "on the whole", "on reflection", "on closer examination", "on closer inspection",
+    "on that note", "on this basis", "on the surface", "on further analysis",
+    "on the assumption that", "on behalf of", "on account of", "on the grounds that",
+    "on condition that", "on the verge of", "on the brink of"
+  ],
+  "for": [
+    "for example", "for instance", "for this reason", "for the most part", "for the time being",
+    "furthermore", "for comparison", "for clarification", "for the sake of", "for one thing",
+    "for another", "for the purpose of", "for fear that", "for all intents and purposes",
+    "for the record", "for what it's worth", "for better or worse", "for good measure"
+  ],
+  "as": [
+    "as a result", "as mentioned", "as noted", "as previously stated", "as illustrated",
+    "as demonstrated", "as shown", "as discussed", "as such", "as follows",
+    "as a matter of fact", "as a consequence", "as a rule", "as it were",
+    "as far as", "as long as", "as opposed to", "as well as", "as soon as",
+    "as indicated", "as observed", "as outlined", "as emphasized", "as revealed"
+  ],
+  "to": [
+    "to summarize", "to conclude", "to illustrate", "to clarify", "to begin with",
+    "to this end", "to put it simply", "to elaborate", "to be specific", "to be precise",
+    "to be fair", "to be sure", "to be honest", "to put it another way", "to reiterate",
+    "to recapitulate", "to emphasize", "to highlight", "to underscore", "to demonstrate",
+    "to establish", "to examine", "to explore", "to investigate", "to analyze"
+  ],
+  "it": [
+    "it should be noted", "it is important", "it is worth noting", "it is clear that",
+    "it is evident", "it is apparent", "it follows that", "it can be argued",
+    "it is essential", "it is crucial", "it is significant", "it is noteworthy",
+    "it is interesting", "it is remarkable", "it is undeniable", "it is obvious",
+    "it is imperative", "it is fundamental", "it goes without saying", "it stands to reason",
+    "it must be emphasized", "it cannot be denied", "it is widely accepted", "it is generally agreed"
+  ],
+  "this": [
+    "this suggests", "this indicates", "this demonstrates", "this shows", "this implies",
+    "this means", "this reveals", "this highlights", "this underscores", "this illustrates",
+    "this proves", "this confirms", "this validates", "this supports", "this reinforces",
+    "this emphasizes", "this raises the question", "this begs the question", "this leads to",
+    "this brings us to", "this points to", "this reflects", "this exemplifies"
+  ],
+  "that": [
+    "that is", "that is to say", "that being said", "that said", "that is why",
+    "that is how", "that is where", "that is when", "that notwithstanding",
+    "that may be", "that depends", "that remains to be seen"
+  ],
+  "with": [
+    "with regard to", "with respect to", "with reference to", "with this in mind",
+    "with that said", "with the exception of", "with the advent of", "with the benefit of hindsight",
+    "with few exceptions", "with increasing frequency", "with varying degrees", "with considerable evidence"
+  ],
+  "by": [
+    "by contrast", "by comparison", "by way of", "by means of", "by virtue of",
+    "by definition", "by extension", "by implication", "by the same token",
+    "by and large", "by far", "by no means"
+  ],
+  "at": [
+    "at first glance", "at the same time", "at this point", "at any rate",
+    "at the very least", "at the outset", "at present", "at length",
+    "at best", "at worst", "at first", "at last"
+  ],
+  "from": [
+    "from this perspective", "from this point of view", "from the outset",
+    "from the beginning", "from time to time", "from now on", "from then on",
+    "from this standpoint", "from a practical standpoint", "from a theoretical perspective"
+  ],
+  "through": [
+    "through this process", "through careful analysis", "through examination",
+    "through investigation", "through experimentation", "through observation"
+  ],
+  "under": [
+    "under these circumstances", "under these conditions", "under consideration",
+    "under scrutiny", "under the assumption", "under no circumstances"
+  ],
+  "over": [
+    "over time", "over the years", "over the course of", "over and above",
+    "over the long term", "over the short term"
+  ],
+  "according": [
+    "according to", "according to research", "according to studies",
+    "according to experts", "according to the evidence"
+  ],
+  "despite": [
+    "despite this", "despite the fact that", "despite these challenges",
+    "despite considerable evidence", "despite widespread belief"
+  ],
+  "due": [
+    "due to", "due to the fact that", "due consideration", "due diligence"
+  ],
+  "given": [
+    "given that", "given these circumstances", "given the evidence",
+    "given these findings", "given this information"
+  ],
+  "based": [
+    "based on", "based on these findings", "based on this evidence",
+    "based on research", "based on the data"
+  ],
+  "rather": [
+    "rather than", "rather surprisingly", "rather obviously", "rather simply"
+  ],
+  "more": [
+    "more importantly", "more specifically", "more generally", "more precisely",
+    "more accurately", "more significantly", "more recently", "moreover"
+  ],
+  "most": [
+    "most importantly", "most significantly", "most notably", "most recently",
+    "most obviously", "most certainly", "most likely"
+  ],
+  "one": [
+    "one might argue", "one could say", "one must consider", "one should note",
+    "one can observe", "one can conclude", "one way or another"
+  ],
+  "such": [
+    "such as", "such that", "such being the case", "in such cases", "no such thing"
+  ],
+  "thus": [
+    "thus far", "thus suggesting", "thus demonstrating", "thus indicating"
+  ],
+  "therefore": [
+    "therefore it follows", "therefore one can conclude", "therefore we can see"
+  ],
+  "however": [
+    "however it should be noted", "however one must consider"
+  ],
+  "although": [
+    "although it is true", "although one might argue", "although this is the case"
+  ],
+  "while": [
+    "while it is true", "while this may be", "while one might argue"
+  ],
+  "whereas": [
+    "whereas previously", "whereas in contrast", "whereas on the other hand"
+  ],
+  "not": [
+    "not only", "not merely", "not surprisingly", "not withstanding",
+    "not to mention", "not least", "not necessarily"
+  ],
+  "first": [
+    "first and foremost", "first of all", "first and most importantly",
+    "firstly it should be noted"
+  ],
+  "second": [
+    "second to none", "secondly one must consider", "second only to"
+  ],
+  "finally": [
+    "finally it should be noted", "finally one must consider"
+  ],
+  "consequently": [
+    "consequently it follows", "consequently one can conclude"
+  ],
+  "nevertheless": [
+    "nevertheless it is important", "nevertheless one must consider"
+  ],
+  "nonetheless": [
+    "nonetheless it remains", "nonetheless one should note"
+  ],
+  "additionally": [
+    "additionally it should be noted", "additionally one must consider"
+  ],
+  "specifically": [
+    "specifically in terms of", "specifically with regard to"
+  ],
+  "particularly": [
+    "particularly in light of", "particularly with respect to"
+  ],
+  "especially": [
+    "especially in cases where", "especially with regard to"
+  ],
+  "essentially": [
+    "essentially this means", "essentially what this shows"
+  ],
+  "fundamentally": [
+    "fundamentally this suggests", "fundamentally one must"
+  ],
+  "ultimately": [
+    "ultimately this leads to", "ultimately one can conclude"
+  ],
+  "clearly": [
+    "clearly this demonstrates", "clearly this shows", "clearly one can see"
+  ],
+  "obviously": [
+    "obviously this suggests", "obviously one must consider"
+  ],
+  "evidently": [
+    "evidently this indicates", "evidently one can conclude"
+  ],
+  "arguably": [
+    "arguably the most", "arguably one could say"
+  ],
+  "undoubtedly": [
+    "undoubtedly this shows", "undoubtedly one can see"
+  ],
+  "certainly": [
+    "certainly this demonstrates", "certainly one must consider"
+  ],
+  "indeed": [
+    "indeed it is", "indeed one can", "indeed this suggests"
+  ],
+  "namely": [
+    "namely that", "namely the fact that"
+  ],
+  "similarly": [
+    "similarly one can", "similarly it should be noted"
+  ],
+  "likewise": [
+    "likewise one must", "likewise it is important"
+  ],
+  "conversely": [
+    "conversely one might argue", "conversely it could be said"
+  ]
+}

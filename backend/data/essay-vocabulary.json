@@ -1,0 +1,38 @@
+{
+  "argumentative": [
+    "argue", "assert", "claim", "contend", "maintain", "propose", "suggest", "advocate", "challenge", "dispute",
+    "refute", "counter", "oppose", "support", "defend", "justify", "convince", "persuade", "demonstrate", "prove",
+    "evidence", "reasoning", "logic", "fallacy", "valid", "invalid", "sound", "unsound", "premise", "conclusion",
+    "therefore", "thus", "hence", "consequently", "accordingly", "nevertheless", "however", "although", "despite", "whereas",
+    "conversely", "alternatively", "on the contrary", "by contrast", "similarly", "likewise", "furthermore", "moreover", "additionally"
+  ],
+  "research": [
+    "analyze", "examine", "investigate", "explore", "study", "assess", "evaluate", "measure", "compare", "contrast",
+    "identify", "determine", "establish", "demonstrate", "indicate", "reveal", "show", "suggest", "imply", "confirm",
+    "hypothesis", "theory", "methodology", "data", "findings", "results", "conclusion", "implications", "limitations", "significance",
+    "sample", "population", "variable", "correlation", "causation", "statistical", "empirical", "quantitative", "qualitative", "systematic",
+    "observation", "experiment", "survey", "interview", "questionnaire", "participant", "procedure", "instrument", "reliability", "validity"
+  ],
+  "narrative": [
+    "describe", "depict", "portray", "illustrate", "recount", "relate", "tell", "narrate", "chronicle", "detail",
+    "explain", "clarify", "elaborate", "expand", "develop", "unfold", "reveal", "disclose", "expose", "demonstrate",
+    "scene", "setting", "character", "protagonist", "antagonist", "plot", "conflict", "climax", "resolution", "theme",
+    "perspective", "point of view", "first-person", "third-person", "narrator", "voice", "tone", "mood", "atmosphere", "imagery",
+    "metaphor", "simile", "symbol", "foreshadowing", "flashback", "dialogue", "action", "motivation", "transformation", "journey"
+  ],
+  "expository": [
+    "explain", "define", "describe", "clarify", "elucidate", "interpret", "illustrate", "demonstrate", "show", "reveal",
+    "outline", "summarize", "detail", "specify", "enumerate", "categorize", "classify", "distinguish", "differentiate", "compare",
+    "inform", "educate", "instruct", "teach", "present", "introduce", "overview", "background", "context", "framework",
+    "process", "procedure", "method", "technique", "approach", "strategy", "system", "structure", "organization", "pattern",
+    "cause", "effect", "reason", "result", "consequence", "factor", "element", "component", "aspect", "feature"
+  ],
+  "academic_transitions": [
+    "furthermore", "moreover", "additionally", "in addition", "also", "besides", "similarly", "likewise", "equally",
+    "however", "nevertheless", "nonetheless", "yet", "still", "although", "though", "even though", "despite", "in spite of",
+    "therefore", "thus", "hence", "consequently", "accordingly", "as a result", "for this reason", "because of this",
+    "in conclusion", "to conclude", "in summary", "to summarize", "overall", "in short", "in brief", "ultimately",
+    "for example", "for instance", "such as", "specifically", "particularly", "namely", "that is", "in other words",
+    "on the other hand", "conversely", "by contrast", "in contrast", "alternatively", "instead", "rather", "whereas"
+  ]
+}

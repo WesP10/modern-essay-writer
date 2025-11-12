@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Color Palettes */
+:root {
+	/* Default colors - will be overridden by theme selection */
+	--color-bgPrimary: #f0f9ff;
+	--color-bgSecondary: #ffffff;
+	--color-bgTertiary: #e0f2fe;
+	--color-textPrimary: #0c4a6e;
+	--color-textSecondary: #075985;
+	--color-textTertiary: #0284c7;
+	--color-accent: #0ea5e9;
+	--color-accentHover: #0284c7;
+	--color-accentLight: #bae6fd;
+	--color-border: #bae6fd;
+	--color-borderHover: #7dd3fc;
+	--color-success: #10b981;
+	--color-warning: #f59e0b;
+	--color-error: #ef4444;
+	--color-info: #3b82f6;
+	--color-editorBg: #ffffff;
+	--color-editorText: #0c4a6e;
+	--color-editorPlaceholder: #94a3b8;
+	--color-scrollbarThumb: rgba(14, 165, 233, 0.3);
+	--color-scrollbarThumbHover: rgba(14, 165, 233, 0.5);
+}
+
+/* Custom Scrollbar Styles - Google Sheets Inspired */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--color-scrollbarThumb);
+	border-radius: 6px;
+	border: 2px solid transparent;
+	background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-scrollbarThumbHover);
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+/* Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-scrollbarThumb) transparent;
+}
+
+/* Thinner scrollbar variant for panels */
+.scrollbar-thin::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+	background-color: var(--color-scrollbarThumb);
+	border-radius: 4px;
+	border: 1px solid transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-scrollbarThumbHover);
+}
+
+/* Hidden scrollbar but still scrollable */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+
+/* Overlay scrollbar (appears on hover) */
+.scrollbar-overlay::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.scrollbar-overlay::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.scrollbar-overlay::-webkit-scrollbar-thumb {
+	background-color: transparent;
+	border-radius: 4px;
+	transition: background-color 0.2s ease;
+}
+
+.scrollbar-overlay:hover::-webkit-scrollbar-thumb {
+	background-color: var(--color-scrollbarThumb);
+}
+
+.scrollbar-overlay::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-scrollbarThumbHover);
+}
+
+/* TipTap Editor Styles */
+.ProseMirror {
+	@apply outline-none min-h-screen p-8;
+}
+
+.ProseMirror h1 {
+	@apply text-4xl font-bold mb-4 mt-6;
+}
+
+.ProseMirror h2 {
+	@apply text-3xl font-bold mb-3 mt-5;
+}
+
+.ProseMirror h3 {
+	@apply text-2xl font-bold mb-2 mt-4;
+}
+
+.ProseMirror h4 {
+	@apply text-xl font-bold mb-2 mt-3;
+}
+
+.ProseMirror h5 {
+	@apply text-lg font-bold mb-1 mt-2;
+}
+
+.ProseMirror h6 {
+	@apply text-base font-bold mb-1 mt-2;
+}
+
+.ProseMirror p {
+	@apply mb-4;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+	@apply pl-6 mb-4;
+}
+
+.ProseMirror ul {
+	@apply list-disc;
+}
+
+.ProseMirror ol {
+	@apply list-decimal;
+}
+
+.ProseMirror li {
+	@apply mb-1;
+}
+
+.ProseMirror strong {
+	@apply font-bold;
+}
+
+.ProseMirror em {
+	@apply italic;
+}
+
+.ProseMirror code {
+	background-color: var(--color-bgTertiary);
+	@apply px-1 py-0.5 rounded text-sm;
+}
+
+.ProseMirror pre {
+	background-color: var(--color-bgTertiary);
+	@apply p-4 rounded mb-4 overflow-x-auto;
+}
+
+/* Theme utility classes */
+.bg-theme-primary {
+	background-color: var(--color-bgPrimary);
+}
+
+.bg-theme-secondary {
+	background-color: var(--color-bgSecondary);
+}
+
+.bg-theme-tertiary {
+	background-color: var(--color-bgTertiary);
+}
+
+.text-theme-primary {
+	color: var(--color-textPrimary);
+}
+
+.text-theme-secondary {
+	color: var(--color-textSecondary);
+}
+
+.text-theme-tertiary {
+	color: var(--color-textTertiary);
+}
+
+.bg-theme-accent {
+	background-color: var(--color-accent);
+}
+
+.text-theme-accent {
+	color: var(--color-accent);
+}
+
+.border-theme {
+	border-color: var(--color-border);
+}
+
+.hover\:border-theme-hover:hover {
+	border-color: var(--color-borderHover);
+}
+
+.hover\:bg-theme-accent-hover:hover {
+	background-color: var(--color-accentHover);
+}
