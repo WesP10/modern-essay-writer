@@ -1,9 +1,9 @@
-import { supabase } from '../config/database.js';
+import { auth } from '../config/firebase.js';
 import { AuthenticationError } from './errorHandler.js';
 import { logger } from '../utils/logger.js';
 
 /**
- * Middleware to verify JWT token from Supabase
+ * Middleware to verify JWT token from Firebase
  */
 export async function authenticateUser(req, res, next) {
   try {
@@ -16,19 +16,24 @@ export async function authenticateUser(req, res, next) {
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-    // Verify token with Supabase
-    const { data: { user }, error } = await supabase.auth.getUser(token);
+    // Verify token with Firebase
+    const decodedToken = await auth.verifyIdToken(token);
 
-    if (error || !user) {
-      logger.warn('Authentication failed:', error?.message);
+    if (!decodedToken) {
+      logger.warn('Authentication failed: Invalid token');
       throw new AuthenticationError('Invalid or expired token');
     }
 
     // Attach user to request object
-    req.user = user;
-    req.userId = user.id;
+    req.user = {
+      id: decodedToken.uid,
+      email: decodedToken.email,
+      email_verified: decodedToken.email_verified,
+      name: decodedToken.name || null
+    };
+    req.userId = decodedToken.uid;
 
-    logger.debug(`User authenticated: ${user.id}`);
+    logger.debug(`User authenticated: ${decodedToken.uid}`);
     next();
   } catch (error) {
     if (error instanceof AuthenticationError) {
@@ -60,11 +65,16 @@ export async function optionalAuth(req, res, next) {
     }
 
     const token = authHeader.substring(7);
-    const { data: { user }, error } = await supabase.auth.getUser(token);
+    const decodedToken = await auth.verifyIdToken(token);
 
-    if (!error && user) {
-      req.user = user;
-      req.userId = user.id;
+    if (decodedToken) {
+      req.user = {
+        id: decodedToken.uid,
+        email: decodedToken.email,
+        email_verified: decodedToken.email_verified,
+        name: decodedToken.name || null
+      };
+      req.userId = decodedToken.uid;
     } else {
       req.user = null;
       req.userId = null;

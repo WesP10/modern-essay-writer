@@ -79,8 +79,8 @@
 		};
 	});
 
-	function loadEssay() {
-		const essay = EssayStorage.getEssay(essayId);
+	async function loadEssay() {
+		const essay = await EssayStorage.getEssay(essayId);
 		if (essay) {
 			title = essay.title || 'Untitled Essay';
 			content = essay.content || '';
@@ -91,10 +91,10 @@
 		}
 	}
 
-	function saveEssay() {
+	async function saveEssay() {
 		saveStatus = 'saving';
 
-		const existingEssay = EssayStorage.getEssay(essayId);
+		const existingEssay = EssayStorage.getFromLocalStorage(essayId);
 		const essayData: EssayData = {
 			id: essayId,
 			title,
@@ -105,7 +105,7 @@
 			charCount
 		};
 
-		EssayStorage.saveEssay(essayData);
+		await EssayStorage.saveEssay(essayData);
 		modifiedDate = essayData.modified;
 
 		setTimeout(() => {

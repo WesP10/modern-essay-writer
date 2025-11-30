@@ -105,7 +105,7 @@ export class SyncService {
 
 			// Merge cloud essays with local storage
 			for (const cloudEssay of cloudEssays) {
-				const localEssay = EssayStorage.getEssay(cloudEssay.id);
+				const localEssay = EssayStorage.getFromLocalStorage(cloudEssay.id);
 				
 				// If local essay doesn't exist or cloud is newer, save from cloud
 				if (!localEssay || new Date(cloudEssay.updated_at) > new Date(localEssay.modified)) {
@@ -118,7 +118,7 @@ export class SyncService {
 						wordCount: cloudEssay.word_count || 0,
 						charCount: cloudEssay.char_count || 0
 					};
-					EssayStorage.saveEssay(essayData);
+					EssayStorage.saveToLocalStorage(essayData);
 					console.log('Downloaded essay from cloud:', cloudEssay.id);
 				}
 			}

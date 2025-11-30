@@ -2,6 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { EssayStorage, type EssayData } from '$lib/utils/storage';
+	import { user, authActions, isAuthenticated } from '$lib/stores/auth';
+	import { isFirebaseConfigured } from '$lib/firebaseClient';
 
 	let essays: EssayData[] = [];
 	let storageInfo = { used: 0, total: 0, percentage: 0 };
@@ -11,8 +13,8 @@
 		storageInfo = EssayStorage.getStorageInfo();
 	});
 
-	function loadEssays() {
-		essays = EssayStorage.getAllEssays();
+	async function loadEssays() {
+		essays = await EssayStorage.getAllEssays();
 	}
 
 	function createNewEssay() {
@@ -24,10 +26,10 @@
 		goto(`/editor/${id}`);
 	}
 
-	function deleteEssay(id: string, event: Event) {
+	async function deleteEssay(id: string, event: Event) {
 		event.stopPropagation();
 		if (confirm('Are you sure you want to delete this essay?')) {
-			EssayStorage.deleteEssay(id);
+			await EssayStorage.deleteEssay(id);
 			loadEssays();
 			storageInfo = EssayStorage.getStorageInfo();
 		}
@@ -62,14 +64,44 @@
 
 <div class="min-h-screen overflow-auto scrollbar-overlay" style="background: linear-gradient(to bottom right, var(--color-bgPrimary), var(--color-bgTertiary));">
 	<div class="container mx-auto px-4 py-16">
-		<!-- Header -->
-		<div class="text-center mb-12">
-			<h1 class="text-6xl font-bold mb-4" style="color: var(--color-textPrimary);">
-				✍️ EssayForge
-			</h1>
-			<p class="text-xl" style="color: var(--color-textSecondary);">
-				Your modern essay writing companion
-			</p>
+		<!-- Header with Auth -->
+		<div class="flex items-center justify-between mb-8">
+			<div class="text-center flex-1">
+				<h1 class="text-6xl font-bold mb-4" style="color: var(--color-textPrimary);">
+					✍️ EssayForge
+				</h1>
+				<p class="text-xl" style="color: var(--color-textSecondary);">
+					Your modern essay writing companion
+				</p>
+			</div>
+			
+			<!-- Auth Status -->
+			{#if isFirebaseConfigured}
+				<div class="absolute top-4 right-4">
+					{#if $isAuthenticated && $user}
+						<div class="flex items-center space-x-4 px-4 py-2 rounded-lg" style="background-color: var(--color-bgSecondary);">
+							<span class="text-sm" style="color: var(--color-textSecondary);">
+								{$user.email}
+							</span>
+							<button
+								on:click={() => authActions.signOut()}
+								class="text-sm hover:underline"
+								style="color: var(--color-error);"
+							>
+								Sign Out
+							</button>
+						</div>
+					{:else}
+						<a
+							href="/auth"
+							class="px-4 py-2 rounded-lg font-semibold text-white transition-opacity hover:opacity-90"
+							style="background-color: var(--color-accent);"
+						>
+							Sign In
+						</a>
+					{/if}
+				</div>
+			{/if}
 		</div>
 
 		<!-- Main Actions -->

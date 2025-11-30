@@ -1,15 +1,12 @@
-import { supabase } from '$lib/supabaseClient';
+import { getAuthToken } from '$lib/firebaseClient';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 /**
- * Get the authentication token from Supabase
+ * Get the authentication token from Firebase
  */
-async function getAuthToken(): Promise<string | null> {
-	if (!supabase) return null;
-	
-	const { data: { session } } = await supabase.auth.getSession();
-	return session?.access_token || null;
+async function getFirebaseAuthToken(): Promise<string | null> {
+	return getAuthToken();
 }
 
 /**
@@ -19,11 +16,11 @@ async function apiRequest<T>(
 	endpoint: string,
 	options: RequestInit = {}
 ): Promise<T> {
-	const token = await getAuthToken();
+	const token = await getFirebaseAuthToken();
 	
-	const headers: HeadersInit = {
+	const headers: Record<string, string> = {
 		'Content-Type': 'application/json',
-		...options.headers
+		...(options.headers as Record<string, string> || {})
 	};
 
 	if (token) {
@@ -192,4 +189,125 @@ export async function generateText(
 		method: 'POST',
 		body: JSON.stringify({ prompt, ...options })
 	});
+}
+
+// ============================================================================
+// Essay Management API
+// ============================================================================
+
+export interface Essay {
+	id: string;
+	user_id: string;
+	title: string;
+	content: string;
+	word_count: number;
+	char_count: number;
+	created_at: string;
+	updated_at: string;
+}
+
+export interface CreateEssayRequest {
+	title: string;
+	content?: string;
+	word_count?: number;
+	char_count?: number;
+}
+
+export interface UpdateEssayRequest {
+	title?: string;
+	content?: string;
+	word_count?: number;
+	char_count?: number;
+}
+
+/**
+ * Get all essays for the authenticated user
+ */
+export async function getUserEssays(): Promise<Essay[]> {
+	try {
+		const response = await apiRequest<{ essays: Essay[] }>('/api/essays', {
+			method: 'GET'
+		});
+		return response.essays;
+	} catch (error) {
+		console.error('[API] Failed to get user essays:', error);
+		throw error;
+	}
+}
+
+/**
+ * Get a specific essay by ID
+ */
+export async function getEssay(essayId: string): Promise<Essay> {
+	try {
+		const response = await apiRequest<{ essay: Essay }>(`/api/essays/${essayId}`, {
+			method: 'GET'
+		});
+		return response.essay;
+	} catch (error) {
+		console.error('[API] Failed to get essay:', error);
+		throw error;
+	}
+}
+
+/**
+ * Create a new essay
+ */
+export async function createEssay(data: CreateEssayRequest): Promise<Essay> {
+	try {
+		const response = await apiRequest<{ essay: Essay }>('/api/essays', {
+			method: 'POST',
+			body: JSON.stringify(data)
+		});
+		return response.essay;
+	} catch (error) {
+		console.error('[API] Failed to create essay:', error);
+		throw error;
+	}
+}
+
+/**
+ * Sync an essay (create or update based on existence)
+ */
+export async function syncEssay(essayId: string, data: CreateEssayRequest & { created_at?: string }): Promise<Essay> {
+	try {
+		const response = await apiRequest<{ essay: Essay }>(`/api/essays/${essayId}/sync`, {
+			method: 'PUT',
+			body: JSON.stringify(data)
+		});
+		return response.essay;
+	} catch (error) {
+		console.error('[API] Failed to sync essay:', error);
+		throw error;
+	}
+}
+
+/**
+ * Update an existing essay
+ */
+export async function updateEssay(essayId: string, data: UpdateEssayRequest): Promise<Essay> {
+	try {
+		const response = await apiRequest<{ essay: Essay }>(`/api/essays/${essayId}`, {
+			method: 'PUT',
+			body: JSON.stringify(data)
+		});
+		return response.essay;
+	} catch (error) {
+		console.error('[API] Failed to update essay:', error);
+		throw error;
+	}
+}
+
+/**
+ * Delete an essay
+ */
+export async function deleteEssay(essayId: string): Promise<void> {
+	try {
+		await apiRequest<{ success: boolean }>(`/api/essays/${essayId}`, {
+			method: 'DELETE'
+		});
+	} catch (error) {
+		console.error('[API] Failed to delete essay:', error);
+		throw error;
+	}
 }

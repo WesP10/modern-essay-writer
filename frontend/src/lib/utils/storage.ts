@@ -1,4 +1,6 @@
-// Storage utility for managing essays in localStorage with version history
+// Storage utility for managing essays with Firebase sync and localStorage fallback
+import { auth } from '$lib/firebaseClient';
+import * as essayAPI from './api';
 
 export interface EssayData {
 	id: string;
@@ -19,7 +21,12 @@ export interface EssayVersion {
 const MAX_VERSIONS = 10;
 
 export class EssayStorage {
-	// Get all essay IDs
+	// Check if user is authenticated
+	private static isAuthenticated(): boolean {
+		return auth?.currentUser !== null && auth?.currentUser !== undefined;
+	}
+
+	// Get all essay IDs from localStorage
 	static getAllEssayIds(): string[] {
 		const keys = Object.keys(localStorage);
 		return keys
@@ -27,23 +34,50 @@ export class EssayStorage {
 			.map(key => key.replace('essay-', ''));
 	}
 
-	// Get essay by ID
-	static getEssay(id: string): EssayData | null {
+	// Get essay by ID (tries Firebase first, falls back to localStorage)
+	static async getEssay(id: string): Promise<EssayData | null> {
+		// Try Firebase first if authenticated
+		if (this.isAuthenticated()) {
+			try {
+				const firebaseEssay = await essayAPI.getEssay(id);
+				const essayData: EssayData = {
+					id: firebaseEssay.id,
+					title: firebaseEssay.title,
+					content: firebaseEssay.content,
+					created: firebaseEssay.created_at,
+					modified: firebaseEssay.updated_at,
+					wordCount: firebaseEssay.word_count,
+					charCount: firebaseEssay.char_count
+				};
+				// Cache in localStorage
+				this.saveToLocalStorage(essayData);
+				return essayData;
+			} catch (error) {
+				console.warn('Failed to fetch from Firebase, using localStorage:', error);
+			}
+		}
+
+		// Fall back to localStorage
+		return this.getFromLocalStorage(id);
+	}
+
+	// Get essay from localStorage only (synchronous)
+	static getFromLocalStorage(id: string): EssayData | null {
 		try {
 			const data = localStorage.getItem(`essay-${id}`);
 			if (!data) return null;
 			return JSON.parse(data);
 		} catch (e) {
-			console.error('Error loading essay:', e);
+			console.error('Error loading essay from localStorage:', e);
 			return null;
 		}
 	}
 
-	// Save essay with version history
-	static saveEssay(essay: EssayData): void {
+	// Save to localStorage only (synchronous)
+	static saveToLocalStorage(essay: EssayData): void {
 		try {
 			// Save current version to version history
-			const existingEssay = this.getEssay(essay.id);
+			const existingEssay = this.getFromLocalStorage(essay.id);
 			if (existingEssay && existingEssay.content !== essay.content) {
 				this.addVersion(essay.id, existingEssay.content, existingEssay.wordCount);
 			}
@@ -51,8 +85,65 @@ export class EssayStorage {
 			// Save the essay
 			localStorage.setItem(`essay-${essay.id}`, JSON.stringify(essay));
 		} catch (e) {
-			console.error('Error saving essay:', e);
+			console.error('Error saving essay to localStorage:', e);
 		}
+	}
+
+	// Save essay (saves to both Firebase and localStorage)
+	static async saveEssay(essay: EssayData): Promise<void> {
+		// Always save to localStorage first for immediate feedback
+		this.saveToLocalStorage(essay);
+
+		// Sync to Firebase if authenticated
+		if (this.isAuthenticated()) {
+			try {
+				// Use the sync endpoint which handles create or update
+				await essayAPI.syncEssay(essay.id, {
+					title: essay.title,
+					content: essay.content,
+					word_count: essay.wordCount || 0,
+					char_count: essay.charCount || 0,
+					created_at: essay.created
+				});
+				console.log('✅ Essay synced to Firebase:', essay.id);
+				console.log('✅ Essay synced to Firebase:', essay.id);
+			} catch (error) {
+				console.error('❌ Failed to sync essay to Firebase:', error);
+				// Essay is still saved in localStorage, so don't throw
+			}
+		}
+	}
+
+	// Get all essays (from localStorage, could be enhanced to sync from Firebase)
+	static async getAllEssays(): Promise<EssayData[]> {
+		// If authenticated, try to fetch from Firebase first
+		if (this.isAuthenticated()) {
+			try {
+				const firebaseEssays = await essayAPI.getUserEssays();
+				const essays: EssayData[] = firebaseEssays.map(essay => ({
+					id: essay.id,
+					title: essay.title,
+					content: essay.content,
+					created: essay.created_at,
+					modified: essay.updated_at,
+					wordCount: essay.word_count,
+					charCount: essay.char_count
+				}));
+				
+				// Cache in localStorage
+				essays.forEach(essay => this.saveToLocalStorage(essay));
+				return essays;
+			} catch (error) {
+				console.warn('Failed to fetch essays from Firebase, using localStorage:', error);
+			}
+		}
+
+		// Fall back to localStorage
+		const ids = this.getAllEssayIds();
+		return ids
+			.map(id => this.getFromLocalStorage(id))
+			.filter((essay): essay is EssayData => essay !== null)
+			.sort((a, b) => new Date(b.modified).getTime() - new Date(a.modified).getTime());
 	}
 
 	// Get version history for an essay
@@ -89,10 +180,10 @@ export class EssayStorage {
 	}
 
 	// Restore a specific version
-	static restoreVersion(essayId: string, versionIndex: number): EssayData | null {
+	static async restoreVersion(essayId: string, versionIndex: number): Promise<EssayData | null> {
 		try {
 			const versions = this.getVersions(essayId);
-			const essay = this.getEssay(essayId);
+			const essay = await this.getEssay(essayId);
 			
 			if (!essay || !versions[versionIndex]) return null;
 
@@ -104,7 +195,7 @@ export class EssayStorage {
 				wordCount: version.wordCount
 			};
 
-			this.saveEssay(restoredEssay);
+			await this.saveEssay(restoredEssay);
 			return restoredEssay;
 		} catch (e) {
 			console.error('Error restoring version:', e);
@@ -112,19 +203,21 @@ export class EssayStorage {
 		}
 	}
 
-	// Delete an essay and its versions
-	static deleteEssay(id: string): void {
+	// Delete an essay from both Firebase and localStorage
+	static async deleteEssay(id: string): Promise<void> {
+		// Delete from localStorage
 		localStorage.removeItem(`essay-${id}`);
 		localStorage.removeItem(`essay-${id}-versions`);
-	}
 
-	// Get all essays with metadata
-	static getAllEssays(): EssayData[] {
-		const ids = this.getAllEssayIds();
-		return ids
-			.map(id => this.getEssay(id))
-			.filter((essay): essay is EssayData => essay !== null)
-			.sort((a, b) => new Date(b.modified).getTime() - new Date(a.modified).getTime());
+		// Delete from Firebase if authenticated
+		if (this.isAuthenticated()) {
+			try {
+				await essayAPI.deleteEssay(id);
+				console.log('✅ Essay deleted from Firebase:', id);
+			} catch (error) {
+				console.error('❌ Failed to delete essay from Firebase:', error);
+			}
+		}
 	}
 
 	// Calculate storage usage

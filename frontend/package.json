@@ -42,7 +42,8 @@
 		"@tiptap/extension-text-style": "^2.27.1",
 		"@tiptap/extension-underline": "^2.1.13",
 		"@tiptap/pm": "^2.1.13",
-		"@tiptap/starter-kit": "^2.1.13"
+		"@tiptap/starter-kit": "^2.1.13",
+		"firebase": "^12.6.0"
 	},
 	"type": "module"
 }

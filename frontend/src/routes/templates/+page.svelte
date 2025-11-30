@@ -114,7 +114,7 @@
 		}
 	];
 
-	function selectTemplate(template: Template) {
+	async function selectTemplate(template: Template) {
 		const essayId = Date.now().toString();
 		// Store template structure using the new storage system
 		const essayData: EssayData = {
@@ -124,7 +124,7 @@
 			created: new Date().toISOString(),
 			modified: new Date().toISOString()
 		};
-		EssayStorage.saveEssay(essayData);
+		await EssayStorage.saveEssay(essayData);
 		goto(`/editor/${essayId}`);
 	}
 </script>
