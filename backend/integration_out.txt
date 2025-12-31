@@ -1,0 +1,24 @@
+FAIL tests/integration/api.test.js
+  ● Test suite failed to run
+
+    SyntaxError: The requested module '../../config/ollama.js' does not provide an export named 'default'
+
+    [0m [90m 25 |[39m [90m// Dynamic imports are required after unstable_mockModule[39m
+     [90m 26 |[39m [36mconst[39m request [33m=[39m ([36mawait[39m [36mimport[39m([32m'supertest'[39m))[33m.[39m[36mdefault[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 27 |[39m [36mconst[39m { [36mdefault[39m[33m:[39m app } [33m=[39m [36mawait[39m [36mimport[39m([32m'../../server.js'[39m)[33m;[39m
+     [90m    |[39m                          [31m[1m^[22m[39m
+     [90m 28 |[39m [36mconst[39m { ollamaClient } [33m=[39m [36mawait[39m [36mimport[39m([32m'../../config/ollama.js'[39m)[33m;[39m
+     [90m 29 |[39m
+     [90m 30 |[39m describe([32m'API Integration'[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Runtime.linkAndEvaluateModule (../node_modules/jest-runtime/build/index.js:708:5)
+      at tests/integration/api.test.js:27:26
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        1.934 s
+Ran all test suites matching /tests\\integration\\api.test.js/i.
+(node:85856) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:85856) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.

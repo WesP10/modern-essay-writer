@@ -23,9 +23,6 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
-		"@supabase/auth-ui-shared": "^0.1.8",
-		"@supabase/auth-ui-svelte": "^0.2.9",
-		"@supabase/supabase-js": "^2.80.0",
 		"@tiptap/core": "^2.1.13",
 		"@tiptap/extension-bullet-list": "^2.27.1",
 		"@tiptap/extension-code-block": "^2.27.1",

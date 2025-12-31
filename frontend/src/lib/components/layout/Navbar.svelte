@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { user } from '$lib/stores/auth';
+	
 	export let title = 'Untitled Essay';
 	export let titleInputElement: HTMLInputElement | undefined = undefined;
 	export let saveStatus: 'saved' | 'saving' | 'unsaved' = 'saved';
@@ -42,6 +44,30 @@
 
 		<!-- Right: Actions -->
 		<div class="flex items-center space-x-2">
+			<!-- User Sign-in Status -->
+			{#if $user}
+				<a 
+					href="/auth"
+					class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-opacity-80 transition-all"
+					style="background-color: var(--color-bgTertiary); color: var(--color-textSecondary);"
+					title="Signed in as {$user.email}"
+				>
+					<div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold" style="background-color: var(--color-accent); color: white;">
+						{$user.email?.charAt(0).toUpperCase() || 'U'}
+					</div>
+					<span class="text-sm hidden md:inline">{$user.email}</span>
+				</a>
+			{:else}
+				<a 
+					href="/auth"
+					class="px-3 py-1.5 rounded-lg text-sm hover:opacity-80 transition-opacity"
+					style="color: var(--color-textSecondary);"
+					title="Sign in to sync your essays"
+				>
+					Sign In
+				</a>
+			{/if}
+			
 			<!-- Save Status -->
 			<div class="flex items-center space-x-2 px-3 py-1.5 text-sm" style="color: {statusColors[saveStatus]};">
 				<span>{statusTexts[saveStatus]}</span>

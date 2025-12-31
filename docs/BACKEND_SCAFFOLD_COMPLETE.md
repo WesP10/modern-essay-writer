@@ -11,7 +11,7 @@ The backend folder structure has been scaffolded with all necessary files:
 - ✅ `.gitignore` - Git ignore rules
 
 ### Configuration
-- ✅ `config/database.js` - Supabase connection
+- ✅ `config/firebase.js` - Firebase connection
 - ✅ `config/ollama.js` - Ollama client with streaming support
 - ✅ `config/redis.js` - Redis caching client
 
@@ -58,11 +58,10 @@ cp .env.example .env
 ```
 
 Required variables:
-- `SUPABASE_URL` - From your Supabase dashboard
-- `SUPABASE_SERVICE_KEY` - From Supabase Settings → API
 - `JWT_SECRET` - Generate a random string
 - `OLLAMA_BASE_URL` - Default: http://localhost:11434
 - `REDIS_URL` - Default: redis://localhost:6379
+- Firebase service account key - See Firebase setup docs
 
 ### 2. Install & Start Ollama
 
@@ -122,7 +121,7 @@ curl -X POST http://localhost:3001/api/ai/autocomplete \
 
 ### Completed ✅
 - [x] Express server with TypeScript support
-- [x] Supabase configuration
+- [x] Firebase configuration
 - [x] Redis configuration
 - [x] Ollama client wrapper
 - [x] Authentication middleware
@@ -163,7 +162,7 @@ cat logs/error.log
 
 - Full Implementation Plan: `BACKEND_IMPLEMENTATION_PLAN.md`
 - Backend README: `backend/README.md`
-- Supabase Setup: `docs/SUPABASE_SETUP.md`
+- Firebase Setup: `docs/FIREBASE_SETUP.md`
 
 ## 🎉 Ready to Code!
 

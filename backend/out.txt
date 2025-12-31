@@ -1,0 +1,53 @@
+2025-12-30 17:26:07 [[32minfo[39m]: Ollama client initialized with base URL: http://localhost:11434, default model: gemma3:1b
+17:26:07 [[32minfo[39m]: Ollama client initialized with base URL: http://localhost:11434, default model: gemma3:1b
+(node:55020) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+FAIL tests/unit/humanizerService.test.js
+  ● HumanizerService › should humanize text successfully
+
+    ReferenceError: jest is not defined
+
+    [0m [90m  7 |[39m
+     [90m  8 |[39m   beforeAll(() [33m=>[39m {
+    [31m[1m>[22m[39m[90m  9 |[39m     jest[33m.[39mspyOn(logger[33m,[39m [32m'info'[39m)[33m.[39mmockImplementation(() [33m=>[39m { })[33m;[39m
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 10 |[39m     jest[33m.[39mspyOn(logger[33m,[39m [32m'error'[39m)[33m.[39mmockImplementation(() [33m=>[39m { })[33m;[39m
+     [90m 11 |[39m   })[33m;[39m
+     [90m 12 |[39m[0m
+
+      at Object.jest (tests/unit/humanizerService.test.js:9:5)
+
+  ● HumanizerService › should calculate improvement metrics
+
+    ReferenceError: jest is not defined
+
+    [0m [90m  7 |[39m
+     [90m  8 |[39m   beforeAll(() [33m=>[39m {
+    [31m[1m>[22m[39m[90m  9 |[39m     jest[33m.[39mspyOn(logger[33m,[39m [32m'info'[39m)[33m.[39mmockImplementation(() [33m=>[39m { })[33m;[39m
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 10 |[39m     jest[33m.[39mspyOn(logger[33m,[39m [32m'error'[39m)[33m.[39mmockImplementation(() [33m=>[39m { })[33m;[39m
+     [90m 11 |[39m   })[33m;[39m
+     [90m 12 |[39m[0m
+
+      at Object.jest (tests/unit/humanizerService.test.js:9:5)
+
+
+  ● Test suite failed to run
+
+    ReferenceError: jest is not defined
+
+    [0m [90m 12 |[39m
+     [90m 13 |[39m   afterAll(() [33m=>[39m {
+    [31m[1m>[22m[39m[90m 14 |[39m     jest[33m.[39mrestoreAllMocks()[33m;[39m
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 15 |[39m   })[33m;[39m
+     [90m 16 |[39m
+     [90m 17 |[39m   beforeEach(() [33m=>[39m {[0m
+
+      at Object.jest (tests/unit/humanizerService.test.js:14:5)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 2 total
+Snapshots:   0 total
+Time:        1.234 s, estimated 2 s
+Ran all test suites matching /tests\\unit\\humanizerService.test.js/i.

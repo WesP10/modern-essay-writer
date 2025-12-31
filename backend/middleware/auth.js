@@ -89,4 +89,46 @@ export async function optionalAuth(req, res, next) {
   }
 }
 
+/**
+ * Middleware to require admin privileges
+ * Checks Firebase custom claims for admin role
+ */
+export async function requireAdmin(req, res, next) {
+  try {
+    // Ensure user is authenticated first
+    if (!req.userId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Authentication required',
+      });
+    }
+
+    // Get user record to check custom claims
+    const userRecord = await auth.getUser(req.userId);
+    
+    // Check for admin claim
+    const isAdmin = userRecord.customClaims?.admin === true;
+
+    if (!isAdmin) {
+      logger.warn(`Admin access denied for user ${req.userId}`);
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'Admin privileges required',
+      });
+    }
+
+    // Attach admin status to request
+    req.isAdmin = true;
+    logger.info(`Admin access granted for user ${req.userId}`);
+    
+    next();
+  } catch (error) {
+    logger.error('Admin check middleware error:', error);
+    return res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Failed to verify admin status',
+    });
+  }
+}
+
 export default authenticateUser;

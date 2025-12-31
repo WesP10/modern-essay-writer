@@ -34,11 +34,11 @@ Build a **modular, production-ready word processor** with clean separation betwe
   - Essay metadata (title, created/modified dates)
   - Version history array (store last 10 versions)
   
-- [x] **Supabase Integration**
+- [x] **Firebase Integration**
   - User authentication (email + OAuth)
   - Cloud sync for essays
   - Real-time save indicators
-  - Database schema with RLS policies
+  - Firestore database with security rules
 
 #### 1.3 Template System ✅
 - [x] **Essay Templates**
@@ -109,7 +109,7 @@ backend/
 │   ├── auth.js            # JWT verification
 │   └── rateLimiter.js     # API throttling
 ├── services/
-│   ├── supabase.js        # DB connection
+│   ├── firebase.js        # DB connection
 │   └── llama.js           # Llama client wrapper
 └── utils/
     └── logger.js
@@ -130,7 +130,7 @@ backend/
   ```
 
 #### 3.2 Database Schema
-**Supabase Tables:**
+**Firebase Firestore Collections:**
 - `users` (id, email, created_at)
 - `essays` (id, user_id, title, content, metadata, created_at, updated_at)
 - `versions` (id, essay_id, content, timestamp)
@@ -226,7 +226,7 @@ Each agent:
 #### 6.3 Deployment
 - [ ] Frontend: Vercel
 - [ ] Backend: Railway/Render (with persistent Ollama instance)
-- [ ] Database: Supabase (cloud tier)
+- [ ] Database: Firebase (cloud tier)
 - [ ] Monitoring: Sentry for errors
 
 ---
@@ -365,7 +365,7 @@ npm install @tiptap/core @tiptap/starter-kit
 # Backend
 cd ../backend
 npm init -y
-npm install express cors dotenv @supabase/supabase-js
+npm install express cors dotenv firebase-admin
 npm install -D nodemon
 
 # Agents
@@ -396,7 +396,7 @@ ollama serve
 - [x] Autosave works (localStorage)
 - [x] Export to .txt and .md
 - [x] Clean, responsive UI (mobile + desktop)
-- [x] Cloud sync with Supabase
+- [x] Cloud sync with Firebase
 - [x] User authentication
 - [x] Version history
 

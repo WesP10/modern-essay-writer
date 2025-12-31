@@ -161,7 +161,7 @@ Average per query: 0.00ms
 - [x] Middleware setup
 - [x] Route stubs
 - [x] Environment configuration
-- [x] Supabase integration
+- [x] Firebase integration
 - [x] Server health check
 
 ### Sprint 2 Week 1 (In Progress)

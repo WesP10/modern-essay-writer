@@ -52,7 +52,7 @@ All services follow a **microservices architecture** with clear separation of co
               └─────────────────────────────┘
                      │
               ┌──────▼──────┐
-              │  Supabase   │
+              │  Firebase   │
               │  (Storage)  │
               └─────────────┘
 ```
@@ -376,7 +376,7 @@ backend/
 ├── package.json
 │
 ├── config/
-│   ├── database.js              # Supabase connection
+│   ├── firebase.js              # Firebase connection
 │   ├── ollama.js                # Ollama client config
 │   └── redis.js                 # Redis cache config
 │
@@ -449,7 +449,7 @@ backend/
 - **Fallback:** OpenAI API / Anthropic Claude (cloud)
 
 ### Data & Caching
-- **Database:** Supabase (PostgreSQL)
+- **Database:** Firebase Firestore
 - **Cache:** Redis (for autocomplete suggestions, frequent queries)
 - **Session:** JWT tokens (stored in httpOnly cookies)
 
@@ -463,7 +463,7 @@ backend/
 ## 🔐 Security & Rate Limiting
 
 ### Authentication Flow
-1. User logs in via Supabase Auth
+1. User logs in via Firebase Auth
 2. Backend receives JWT from frontend
 3. Middleware validates JWT on each AI request
 4. User ID attached to request for usage tracking
@@ -493,12 +493,11 @@ const RATE_LIMITS = {
 ### API Key Management
 ```env
 # .env
-SUPABASE_URL=https://xxx.supabase.co
-SUPABASE_SERVICE_KEY=xxx
 OLLAMA_BASE_URL=http://localhost:11434
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=xxx
 OPENAI_API_KEY=xxx  # Fallback
+# Firebase service account key file path
 ```
 
 ---
@@ -1685,7 +1684,7 @@ components:
 
 - **Ollama Documentation:** https://ollama.ai/docs
 - **Express.js Best Practices:** https://expressjs.com/en/advanced/best-practice-performance.html
-- **Supabase API Reference:** https://supabase.com/docs/reference/javascript
+- **Firebase Documentation:** https://firebase.google.com/docs
 - **Redis Caching Patterns:** https://redis.io/topics/client-side-caching
 
 ---

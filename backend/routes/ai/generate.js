@@ -1,7 +1,8 @@
 import express from 'express';
 import { authenticateUser } from '../../middleware/auth.js';
-import { generateLimiter } from '../../middleware/rateLimiter.js';
+import { requireTokens, deductTokensAfterSuccess } from '../../middleware/tokenMiddleware.js';
 import { validateRequest, generateSchema } from '../../middleware/validateRequest.js';
+import { generatorService } from '../../services/generatorService.js';
 import { logger } from '../../utils/logger.js';
 
 const router = express.Router();
@@ -13,13 +14,20 @@ const router = express.Router();
 router.post(
   '/',
   authenticateUser,
-  generateLimiter,
+  requireTokens('generation'),
   validateRequest(generateSchema),
   async (req, res, next) => {
-    const startTime = Date.now();
-    
     try {
-      const { prompt, context, generationType, tone, length, essayType } = req.body;
+      const { 
+        prompt, 
+        essayHtml, 
+        generationType = 'content', 
+        tone = 'formal', 
+        length = 'medium', 
+        essayType = 'academic',
+        temperature = 0.7,
+        model
+      } = req.body;
 
       logger.info('Generate request', {
         userId: req.userId,
@@ -29,29 +37,49 @@ router.post(
         essayType
       });
 
-      // TODO: Implement GeneratorService
-      // For now, return stubbed response
-      const response = {
-        generatedText: 'This is placeholder generated text. The actual implementation will use Ollama to generate contextually relevant content based on your prompt.',
-        metadata: {
-          wordCount: 20,
-          readabilityScore: 65.0,
-          estimatedAIScore: 0.75
-        },
-        alternatives: [
-          'Alternative version 1 would appear here',
-          'Alternative version 2 would appear here'
-        ]
-      };
+      let result;
 
-      const processingTime = Date.now() - startTime;
+      // Route to appropriate generator method
+      if (generationType === 'outline') {
+        const { topic, sections = 3 } = req.body;
+        result = await generatorService.generateOutline({
+          topic: topic || prompt,
+          essayType,
+          sections,
+          model,
+        });
+      } else if (generationType === 'expand') {
+        const { section, direction } = req.body;
+        result = await generatorService.expandSection({
+          section: section || prompt,
+          direction: direction || 'add examples and details',
+          essayHtml,
+          model,
+        });
+      } else {
+        // Default: generate content
+        result = await generatorService.generate({
+          prompt,
+          essayType,
+          tone,
+          length,
+          temperature,
+          essayHtml,
+          model,
+        });
+      }
+
+      // Deduct tokens after successful generation
+      const tokensRemaining = await deductTokensAfterSuccess(req, res, 'generation');
 
       res.json({
-        ...response,
-        processingTime
+        success: true,
+        generatedText: result.content || result.outline || result.expandedContent,
+        metadata: result.metadata,
+        tokensRemaining,
       });
 
-      logger.info(`Generate completed in ${processingTime}ms`);
+      logger.info(`Generate completed: ${result.metadata.latency}ms`);
     } catch (error) {
       logger.error('Generate error:', error);
       next(error);

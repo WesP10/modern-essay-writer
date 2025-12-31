@@ -14,6 +14,9 @@ import autocompleteRoutes from './routes/ai/autocomplete.js';
 import detectRoutes from './routes/ai/detect.js';
 import humanizeRoutes from './routes/ai/humanize.js';
 import generateRoutes from './routes/ai/generate.js';
+import citationsRoutes from './routes/ai/citations.js';
+import sessionRoutes from './routes/ai/session.js';
+import adminRoutes from './routes/admin.js';
 
 // Load environment variables
 dotenv.config();
@@ -57,6 +60,9 @@ app.use('/api/ai/autocomplete', autocompleteRoutes);
 app.use('/api/ai/detect', detectRoutes);
 app.use('/api/ai/humanize', humanizeRoutes);
 app.use('/api/ai/generate', generateRoutes);
+app.use('/api/ai/citations', citationsRoutes);
+app.use('/api/ai/session', sessionRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use((req, res) => {
@@ -70,16 +76,18 @@ app.use((req, res) => {
 // Global error handler (must be last)
 app.use(errorHandler);
 
-// Start server
-app.listen(PORT, async () => {
-  logger.info(`🚀 EssayForge Backend running on port ${PORT}`);
-  logger.info(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-  logger.info(`🤖 Ollama URL: ${process.env.OLLAMA_BASE_URL || 'http://localhost:11434'}`);
-  logger.info(`🔗 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
-  
-  // Test Firebase connection
-  await testFirestoreConnection();
-});
+// Start server only if run directly
+if (process.argv[1] === import.meta.filename || process.argv[1].endsWith('server.js')) {
+  app.listen(PORT, async () => {
+    logger.info(`🚀 EssayForge Backend running on port ${PORT}`);
+    logger.info(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
+    logger.info(`🤖 Ollama URL: ${process.env.OLLAMA_BASE_URL || 'http://localhost:11434'}`);
+    logger.info(`🔗 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+
+    // Test Firebase connection
+    await testFirestoreConnection();
+  });
+}
 
 // Graceful shutdown
 process.on('SIGTERM', () => {

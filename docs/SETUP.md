@@ -1,8 +1,8 @@
 # Quick Start: Setting Up Your Environment
 
-## 🚀 Local Mode (No Configuration Needed)
+## 🚀 Local Mode (Default)
 
-The app works perfectly in **local-only mode** without any setup! Your essays are saved in your browser's localStorage.
+The app works in **local-only mode** where your essays are saved in your browser's localStorage.
 
 Just run:
 ```powershell
@@ -11,55 +11,25 @@ npm run dev
 
 ---
 
-## ☁️ Enable Cloud Sync (Optional)
+## ☁️ Cloud Features (Firebase)
 
-To sync essays across devices and enable cloud backups, follow these steps:
+Firebase is configured for authentication and cloud storage. The backend uses Firebase Firestore for data persistence.
 
-### 1. Create .env File
+### Setting Up Firebase
 
-In the `frontend` folder, create a `.env` file:
+Follow the complete guide in **`docs/FIREBASE_SETUP.md`** to:
+- Configure Firebase project
+- Set up authentication
+- Enable Firestore database
 
-```powershell
-cd frontend
-copy .env.example .env
-```
+### Backend Configuration
 
-### 2. Set Up Supabase
-
-Follow the complete guide in **`docs/SUPABASE_SETUP.md`** to:
-- Create a Supabase account
-- Set up database tables
-- Get your API credentials
-
-### 3. Add Your Credentials
-
-Edit `frontend/.env` and replace with your actual values:
-
-```env
-VITE_SUPABASE_URL=https://xxxxx.supabase.co
-VITE_SUPABASE_ANON_KEY=your-actual-anon-key-here
-```
-
-### 4. Restart the Server
-
-```powershell
-# Stop the server (Ctrl+C)
-npm run dev
-```
-
----
-
-## 🔍 How to Check if Supabase is Working
-
-1. Open the app
-2. Look for authentication options on the home page
-3. If you see "Local Mode" message, Supabase is not configured
-4. If you see sign-in options, Supabase is configured!
+The backend requires a Firebase service account key. See `backend/README.md` for setup instructions.
 
 ---
 
 ## 📝 Current Status
 
 - ✅ Local storage works out of the box
-- ⚙️ Cloud sync requires Supabase setup
-- 📖 See `docs/SUPABASE_SETUP.md` for detailed instructions
+- ✅ Backend uses Firebase/Firestore
+- 📖 See `docs/FIREBASE_SETUP.md` for cloud features

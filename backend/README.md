@@ -8,7 +8,7 @@ Backend API server for EssayForge - AI-powered essay writing assistant.
 - Node.js 20+ installed
 - Ollama installed and running locally
 - Redis installed (or use Docker)
-- Supabase account with database set up
+- Firebase project set up
 
 ### Installation
 
@@ -35,10 +35,8 @@ Edit `.env` file with your credentials:
 PORT=3001
 NODE_ENV=development
 
-# Supabase (get from https://app.supabase.com)
-SUPABASE_URL=https://xxxxxxxxxxxxx.supabase.co
-SUPABASE_SERVICE_KEY=your-service-key-here
-SUPABASE_ANON_KEY=your-anon-key-here
+# Firebase (place your service account JSON file in backend/config/)
+# See Firebase setup docs for details
 
 # Ollama (default local setup)
 OLLAMA_BASE_URL=http://localhost:11434
@@ -111,7 +109,7 @@ backend/
 ├── package.json
 │
 ├── config/
-│   ├── database.js              # Supabase connection
+│   ├── firebase.js              # Firebase connection
 │   ├── ollama.js                # Ollama client config
 │   └── redis.js                 # Redis cache config
 │
@@ -234,7 +232,7 @@ docker exec -it redis redis-cli ping
 ### Railway
 
 1. Create new project on Railway
-2. Add PostgreSQL (if not using Supabase)
+2. Firebase already provides cloud database
 3. Add Redis addon
 4. Set environment variables
 5. Deploy from GitHub
@@ -281,7 +279,7 @@ docker exec -it redis redis-cli ping
 ## 🔗 Related Documentation
 
 - [Backend Implementation Plan](../BACKEND_IMPLEMENTATION_PLAN.md)
-- [Supabase Setup Guide](../docs/SUPABASE_SETUP.md)
+- [Firebase Setup Guide](../docs/FIREBASE_SETUP.md)
 - [Ollama Documentation](https://ollama.ai/docs)
 
 ## 📄 License

@@ -116,13 +116,12 @@ frontend/
 - **Real-time Word Count**: See your progress at a glance
 - **Clean UI**: Distraction-free writing environment
 
-## 🔜 Next Steps (Phase 1.2)
+## 🔜 Next Steps
 
-- [ ] Supabase integration for cloud storage
 - [ ] User authentication
-- [ ] Real-time cloud sync
 - [ ] .docx and .md export options
 - [ ] Version history
+- [ ] Enhanced AI features
 
 ## 📝 Notes
 
@@ -139,4 +138,4 @@ frontend/
 ---
 
 **Status**: Phase 1.1 Frontend Foundation ✅ COMPLETE  
-**Next**: Phase 1.2 - Data Persistence (Supabase Integration)
+**Next**: Phase 1.2 - Data Persistence (Firebase Integration)
